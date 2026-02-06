@@ -15,16 +15,63 @@ export class RoomManager {
     this.raycaster = new THREE.Raycaster();
     this.mouse = new THREE.Vector2();
 
+    // Touch tracking for tap detection
+    this._touchStartX = 0;
+    this._touchStartY = 0;
+    this._touchStartTime = 0;
+    this._tapThreshold = 15; // Max movement in pixels to count as tap
+    this._tapMaxDuration = 300; // Max duration in ms to count as tap
+
     // Callbacks
     this.onEnterRoom = null;
     this.onExitRoom = null;
 
+    // Desktop click
     window.addEventListener('click', (e) => this.onClick(e));
+
+    // Mobile tap detection
+    window.addEventListener('touchstart', (e) => this.onTouchStart(e), { passive: true });
+    window.addEventListener('touchend', (e) => this.onTouchEnd(e), { passive: true });
+
     window.addEventListener('keydown', (e) => {
       if (e.key === 'Escape' && this.state === 'INSIDE') {
         this.exitRoom();
       }
     });
+  }
+
+  onTouchStart(event) {
+    if (event.touches.length === 1) {
+      this._touchStartX = event.touches[0].clientX;
+      this._touchStartY = event.touches[0].clientY;
+      this._touchStartTime = Date.now();
+    }
+  }
+
+  onTouchEnd(event) {
+    if (this.state !== 'EXPLORING') return;
+
+    const touch = event.changedTouches[0];
+    const deltaX = Math.abs(touch.clientX - this._touchStartX);
+    const deltaY = Math.abs(touch.clientY - this._touchStartY);
+    const duration = Date.now() - this._touchStartTime;
+
+    // Check if it's a tap (minimal movement, short duration)
+    if (deltaX < this._tapThreshold && deltaY < this._tapThreshold && duration < this._tapMaxDuration) {
+      this.handleTap(touch.clientX, touch.clientY);
+    }
+  }
+
+  handleTap(x, y) {
+    this.mouse.x = (x / window.innerWidth) * 2 - 1;
+    this.mouse.y = -(y / window.innerHeight) * 2 + 1;
+    this.raycaster.setFromCamera(this.mouse, this.camera);
+
+    const intersects = this.raycaster.intersectObjects(this.hitboxes);
+    if (intersects.length > 0) {
+      const floorIndex = intersects[0].object.userData.floorIndex;
+      this.enterRoom(floorIndex);
+    }
   }
 
   setHitboxes(hitboxes) {
