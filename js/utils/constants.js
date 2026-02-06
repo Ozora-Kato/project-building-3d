@@ -1,0 +1,15 @@
+export const FLOOR_HEIGHT = 4.0;
+export const FLOOR_COUNT = 9;
+export const BUILDING_WIDTH = 12.0;
+export const BUILDING_DEPTH = 10.0;
+export const WINDOW_WIDTH = 1.8;
+export const WINDOW_HEIGHT = 2.5;
+export const WINDOWS_PER_SIDE_FRONT = 4;
+export const WINDOWS_PER_SIDE_SIDE = 3;
+export const WALL_THICKNESS = 0.3;
+export const SPIRAL_TURNS = 2.5;
+export const SPIRAL_RADIUS = Math.max(BUILDING_WIDTH, BUILDING_DEPTH) * 2.5;
+export const STAIRCASE_RADIUS = Math.max(BUILDING_WIDTH, BUILDING_DEPTH) * 0.85;
+export const CAMERA_FOV = 50;
+export const CAMERA_NEAR = 0.1;
+export const CAMERA_FAR = 500;

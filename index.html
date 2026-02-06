@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PROJECT - Corporate Site</title>
+  <link rel="stylesheet" href="css/style.css">
+  <script type="importmap">
+  {
+    "imports": {
+      "three": "https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.js",
+      "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.170.0/examples/jsm/"
+    }
+  }
+  </script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+</head>
+<body>
+  <canvas id="webgl-canvas"></canvas>
+
+  <div id="loading-screen">
+    <div class="loading-inner">
+      <div class="loading-title">PROJECT</div>
+      <div class="loading-bar-track">
+        <div class="loading-bar-fill" id="loading-bar-fill"></div>
+      </div>
+      <div class="loading-text" id="loading-text">INITIALIZING...</div>
+    </div>
+  </div>
+
+  <div id="ui-overlay">
+    <a id="header-logo" href="/building/"><img src="img/logo.png" alt="PROJECT"></a>
+
+    <div id="hero-copy">
+      <p class="hero-copy-ja">変革せよ。変革を迫られる前に。</p>
+      <p class="hero-copy-en">Change before you have to.</p>
+      <p class="hero-copy-author">ー Jack Welch</p>
+    </div>
+
+    <button id="hamburger-menu" aria-label="Menu">
+      <span class="hamburger-line"></span>
+      <span class="hamburger-line"></span>
+    </button>
+
+    <nav id="nav-menu">
+      <ul id="nav-list"></ul>
+    </nav>
+
+    <div id="floor-nav">
+      <ul id="floor-nav-list"></ul>
+    </div>
+
+    <div id="scroll-hint">
+      <div class="scroll-arrow up">&#9650;</div>
+      <div class="scroll-label">SCROLL TO EXPLORE</div>
+      <div class="scroll-arrow down">&#9660;</div>
+    </div>
+
+    <footer id="site-footer">
+      <img src="img/logo.png" alt="PROJECT" class="footer-logo">
+      <p class="footer-copyright">© 2026 PROJECT GROUP Inc.</p>
+    </footer>
+
+    <div id="click-hint">CLICK TO ENTER</div>
+
+    <div class="room-backdrop" id="room-backdrop"></div>
+    <div class="room-container" id="room-container">
+      <div class="room-content" id="room-content">
+        <div class="room-body" id="room-body"></div>
+        <div class="room-footer">
+          <button class="back-btn" id="back-btn">&#8592; BACK</button>
+          <div class="elevator-panel-mobile" id="elevator-panel-mobile"></div>
+        </div>
+      </div>
+      <div class="elevator-panel" id="elevator-panel"></div>
+    </div>
+  </div>
+
+  <script type="module" src="js/main.js"></script>
+</body>
+</html>
